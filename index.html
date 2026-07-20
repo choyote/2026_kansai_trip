@@ -1001,109 +1001,118 @@ body.interactive-map-open{overflow:hidden}
 </div></section></div>
 </main>
 <footer>2026 關西之旅 · 本頁為離線單檔 HTML，可直接用瀏覽器開啟與列印。</footer>
-<script>
-document.querySelectorAll('.top-tab').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    const page=btn.dataset.page;
-    document.querySelectorAll('.top-tab').forEach(x=>x.classList.toggle('active',x===btn));
-    document.querySelectorAll('.page-view').forEach(x=>x.classList.toggle('active',x.id==='page-'+page));
-    window.scrollTo({top:document.querySelector('main').offsetTop-12,behavior:'smooth'});
+<div aria-hidden="true" class="image-lightbox" id="image-lightbox"><button aria-label="關閉圖片" class="lightbox-close" type="button">×</button><div class="lightbox-title"></div><div class="lightbox-image-wrap"><img alt="" class="lightbox-image"/></div></div><div aria-hidden="true" class="interactive-map-modal" id="interactive-map-modal"><div class="interactive-map-panel"><div class="interactive-map-header"><div class="interactive-map-title">中部國際機場官方互動地圖｜第一航廈</div><button aria-label="關閉互動地圖" class="interactive-map-close" type="button">×</button></div><iframe allow="geolocation" class="interactive-map-frame" data-src="https://platinumaps.jp/d/centrair/?culture=zh-tw&amp;spot=301536" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" title="中部國際機場官方互動地圖"></iframe><div class="interactive-map-fallback">如果地圖未顯示，可 <a href="https://platinumaps.jp/d/centrair/?culture=zh-tw&amp;spot=301536" rel="noopener" target="_blank">開啟官方互動地圖</a></div></div></div><script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Main navigation
+  document.querySelectorAll('.top-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const page = btn.dataset.page;
+      document.querySelectorAll('.top-tab').forEach(x => {
+        x.classList.toggle('active', x === btn);
+      });
+      document.querySelectorAll('.page-view').forEach(x => {
+        x.classList.toggle('active', x.id === 'page-' + page);
+      });
+      window.scrollTo({
+        top: document.querySelector('main').offsetTop - 12,
+        behavior: 'smooth'
+      });
+    });
   });
-});
-document.querySelectorAll('.day-tab').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    const d=btn.dataset.day;
-    document.querySelectorAll('.day-tab').forEach(x=>x.classList.toggle('active',x===btn));
-    document.querySelectorAll('.day-panel').forEach(x=>x.classList.toggle('active',x.dataset.day===d));
+
+  // Date tabs
+  document.querySelectorAll('.day-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const day = btn.dataset.day;
+      document.querySelectorAll('.day-tab').forEach(x => {
+        x.classList.toggle('active', x === btn);
+      });
+      document.querySelectorAll('.day-panel').forEach(x => {
+        x.classList.toggle('active', x.dataset.day === day);
+      });
+    });
   });
-});
-document.querySelectorAll('.save-check').forEach(cb=>{
-  const key='kansai2026-'+cb.dataset.key;
-  cb.checked=localStorage.getItem(key)==='1';
-  cb.addEventListener('change',()=>localStorage.setItem(key,cb.checked?'1':'0'));
-});
 
+  // Saved checkboxes
+  document.querySelectorAll('.save-check').forEach(cb => {
+    const key = 'kansai2026-' + cb.dataset.key;
+    cb.checked = localStorage.getItem(key) === '1';
+    cb.addEventListener('change', () => {
+      localStorage.setItem(key, cb.checked ? '1' : '0');
+    });
+  });
 
-document.querySelectorAll('.menu-link').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    const target=btn.dataset.menuTarget;
-    document.querySelectorAll('.top-tab').forEach(x=>x.classList.toggle('active',x.dataset.page==='menu'));
-    document.querySelectorAll('.page-view').forEach(x=>x.classList.toggle('active',x.id==='page-menu'));
-    setTimeout(()=>{
-      const el=document.getElementById(target);
-      if(el){
-        history.replaceState(null,'','#'+target);
-        el.scrollIntoView({behavior:'smooth',block:'start'});
+  // Image lightbox
+  const lightbox = document.getElementById('image-lightbox');
+  const lightboxImg = lightbox?.querySelector('.lightbox-image');
+  const lightboxTitle = lightbox?.querySelector('.lightbox-title');
+
+  function closeLightbox() {
+    if (!lightbox) return;
+    lightbox.classList.remove('open');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('lightbox-open');
+    if (lightboxImg) {
+      lightboxImg.removeAttribute('src');
+    }
+  }
+
+  document.querySelectorAll('[data-lightbox-src]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (!lightbox || !lightboxImg) return;
+      lightboxImg.src = btn.dataset.lightboxSrc;
+      lightboxImg.alt = btn.dataset.lightboxTitle || '放大圖片';
+      if (lightboxTitle) {
+        lightboxTitle.textContent = btn.dataset.lightboxTitle || '';
       }
-    },60);
+      lightbox.classList.add('open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('lightbox-open');
+    });
   });
-});
 
-
-const lightbox=document.getElementById('image-lightbox');
-const lightboxImg=lightbox?.querySelector('.lightbox-image');
-const lightboxTitle=lightbox?.querySelector('.lightbox-title');
-function closeLightbox(){
-  if(!lightbox)return;
-  lightbox.classList.remove('open');
-  lightbox.setAttribute('aria-hidden','true');
-  document.body.classList.remove('lightbox-open');
-}
-document.querySelectorAll('[data-lightbox-src]').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    if(!lightbox||!lightboxImg)return;
-    lightboxImg.src=btn.dataset.lightboxSrc;
-    lightboxImg.alt=btn.dataset.lightboxTitle||'放大圖片';
-    if(lightboxTitle)lightboxTitle.textContent=btn.dataset.lightboxTitle||'';
-    lightbox.classList.add('open');
-    lightbox.setAttribute('aria-hidden','false');
-    document.body.classList.add('lightbox-open');
+  lightbox?.querySelector('.lightbox-close')?.addEventListener('click', closeLightbox);
+  lightbox?.addEventListener('click', event => {
+    if (event.target === lightbox) closeLightbox();
   });
-});
-lightbox?.querySelector('.lightbox-close')?.addEventListener('click',closeLightbox);
-lightbox?.addEventListener('click',e=>{
-  if(e.target===lightbox)closeLightbox();
-});
-document.addEventListener('keydown',e=>{
-  if(e.key==='Escape')closeLightbox();
-});
 
+  // Official interactive map
+  const mapModal = document.getElementById('interactive-map-modal');
+  const mapFrame = mapModal?.querySelector('.interactive-map-frame');
 
-
-
-
-document.addEventListener('DOMContentLoaded',()=>{
-  const modal=document.getElementById('interactive-map-modal');
-  const frame=modal?.querySelector('.interactive-map-frame');
-
-  function openOfficialMap(){
-    if(!modal || !frame) return;
-    if(!frame.src) frame.src=frame.dataset.src;
-    modal.classList.add('open');
-    modal.setAttribute('aria-hidden','false');
+  function openOfficialMap() {
+    if (!mapModal || !mapFrame) return;
+    if (!mapFrame.src) {
+      mapFrame.src = mapFrame.dataset.src;
+    }
+    mapModal.classList.add('open');
+    mapModal.setAttribute('aria-hidden', 'false');
     document.body.classList.add('interactive-map-open');
   }
 
-  function closeOfficialMap(){
-    if(!modal) return;
-    modal.classList.remove('open');
-    modal.setAttribute('aria-hidden','true');
+  function closeOfficialMap() {
+    if (!mapModal) return;
+    mapModal.classList.remove('open');
+    mapModal.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('interactive-map-open');
   }
 
-  document.querySelectorAll('[data-open-official-map]').forEach(btn=>{
-    btn.addEventListener('click',openOfficialMap);
+  document.querySelectorAll('[data-open-official-map]').forEach(btn => {
+    btn.addEventListener('click', openOfficialMap);
   });
 
-  modal?.querySelector('.interactive-map-close')?.addEventListener('click',closeOfficialMap);
-  modal?.addEventListener('click',e=>{
-    if(e.target===modal) closeOfficialMap();
+  mapModal?.querySelector('.interactive-map-close')?.addEventListener('click', closeOfficialMap);
+  mapModal?.addEventListener('click', event => {
+    if (event.target === mapModal) closeOfficialMap();
   });
 
-  document.addEventListener('keydown',e=>{
-    if(e.key==='Escape' && modal?.classList.contains('open')) closeOfficialMap();
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape') {
+      closeLightbox();
+      closeOfficialMap();
+    }
   });
 });
 </script>
-<div aria-hidden="true" class="image-lightbox" id="image-lightbox"><button aria-label="關閉圖片" class="lightbox-close" type="button">×</button><div class="lightbox-title"></div><div class="lightbox-image-wrap"><img alt="" class="lightbox-image"/></div></div><div aria-hidden="true" class="interactive-map-modal" id="interactive-map-modal"><div class="interactive-map-panel"><div class="interactive-map-header"><div class="interactive-map-title">中部國際機場官方互動地圖｜第一航廈</div><button aria-label="關閉互動地圖" class="interactive-map-close" type="button">×</button></div><iframe allow="geolocation" class="interactive-map-frame" data-src="https://platinumaps.jp/d/centrair/?culture=zh-tw&amp;spot=301536" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" title="中部國際機場官方互動地圖"></iframe><div class="interactive-map-fallback">如果地圖未顯示，可 <a href="https://platinumaps.jp/d/centrair/?culture=zh-tw&amp;spot=301536" rel="noopener" target="_blank">開啟官方互動地圖</a></div></div></div></body>
+</body>
 </html>
