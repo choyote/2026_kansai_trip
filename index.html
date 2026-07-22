@@ -1133,5 +1133,65 @@ else initDateAccordions();
     if(title) title.textContent='圖片載入失敗，請確認檔名與 images 路徑。';
   });
 })();
-</script></body>
+</script>
+<script id="v21-lightbox-init-fix">
+(()=>{
+  function initLightbox(){
+    const box=document.getElementById('image-lightbox');
+    if(!box || box.dataset.initialized==='true') return;
+    box.dataset.initialized='true';
+    const img=box.querySelector('.lightbox-image');
+    const title=box.querySelector('.lightbox-title');
+    const wrap=box.querySelector('.lightbox-image-wrap');
+    const close=box.querySelector('.lightbox-close');
+    const fit=box.querySelector('.lightbox-fit');
+    const actual=box.querySelector('.lightbox-actual');
+
+    const setFit=()=>{
+      box.classList.remove('actual-size');
+      if(wrap){wrap.scrollTop=0;wrap.scrollLeft=0;}
+    };
+    const setActual=()=>{
+      box.classList.add('actual-size');
+      if(wrap){wrap.scrollTop=0;wrap.scrollLeft=0;}
+    };
+    const open=(button)=>{
+      if(!img) return;
+      setFit();
+      img.src=button.dataset.lightboxSrc || '';
+      img.alt=button.dataset.lightboxTitle || '放大圖片';
+      if(title) title.textContent=button.dataset.lightboxTitle || '';
+      box.classList.add('open');
+      box.setAttribute('aria-hidden','false');
+      document.body.classList.add('lightbox-open');
+    };
+    const closeBox=()=>{
+      box.classList.remove('open','actual-size');
+      box.setAttribute('aria-hidden','true');
+      document.body.classList.remove('lightbox-open');
+    };
+
+    document.addEventListener('click',event=>{
+      const button=event.target.closest('[data-lightbox-src]');
+      if(button){
+        event.preventDefault();
+        open(button);
+      }
+    });
+    close?.addEventListener('click',closeBox);
+    box.addEventListener('click',event=>{
+      if(event.target===box) closeBox();
+    });
+    fit?.addEventListener('click',setFit);
+    actual?.addEventListener('click',setActual);
+    img?.addEventListener('click',()=>box.classList.contains('actual-size')?setFit():setActual());
+    document.addEventListener('keydown',event=>{
+      if(event.key==='Escape' && box.classList.contains('open')) closeBox();
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initLightbox);
+  else initLightbox();
+})();
+</script>
+</body>
 </html>
