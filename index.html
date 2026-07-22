@@ -655,7 +655,67 @@ body.interactive-map-open{overflow:hidden}
 <style id="v20-clean-copy">
 /* v20：移除操作提醒與尚未提供內容的空白菜單區塊 */
 .section-title{align-items:center}
-</style></head>
+</style><style id="v22-mobile-lightbox-close">
+.lightbox-close{
+  position:fixed;
+  top:max(12px,calc(env(safe-area-inset-top) + 8px));
+  right:max(12px,calc(env(safe-area-inset-right) + 8px));
+  width:54px;
+  height:54px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:2px solid rgba(255,255,255,.75);
+  background:rgba(20,20,20,.78);
+  box-shadow:0 4px 18px rgba(0,0,0,.38);
+  font-size:2.15rem;
+  line-height:1;
+  touch-action:manipulation;
+  z-index:10005;
+}
+.lightbox-bottom-close{
+  flex:0 0 auto;
+  min-height:50px;
+  margin:10px auto max(4px,env(safe-area-inset-bottom));
+  padding:10px 28px;
+  border:1px solid rgba(255,255,255,.72);
+  border-radius:999px;
+  background:rgba(20,20,20,.82);
+  color:#fff;
+  font:700 1rem/1.2 inherit;
+  cursor:pointer;
+  touch-action:manipulation;
+  z-index:3;
+}
+@media(max-width:700px){
+  .image-lightbox{padding:max(10px,env(safe-area-inset-top)) 8px 8px}
+  .lightbox-title{padding:8px 66px 8px;min-height:54px}
+  .lightbox-close{width:58px;height:58px;font-size:2.35rem}
+  .lightbox-image-wrap{min-height:0}
+  .lightbox-bottom-close{display:block;width:min(240px,72vw)}
+}
+@media(min-width:701px){.lightbox-bottom-close{display:none}}
+</style><style id="v16-01-site-version-viewer">
+.hero{position:relative}
+.site-version{
+  position:absolute;
+  right:max(20px,calc(env(safe-area-inset-right) + 14px));
+  bottom:max(16px,calc(env(safe-area-inset-bottom) + 10px));
+  color:rgba(255,255,255,.28);
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:1px;
+  line-height:1;
+  pointer-events:none;
+  user-select:none;
+}
+.lightbox-bottom-close{display:none!important}
+.lightbox-image{touch-action:pan-x pan-y pinch-zoom}
+@media(max-width:700px){
+  .site-version{right:max(14px,calc(env(safe-area-inset-right) + 10px));bottom:max(12px,calc(env(safe-area-inset-bottom) + 8px));font-size:10px}
+}
+</style>
+</head>
 <body>
 <header class="hero">
 <nav>
@@ -677,6 +737,7 @@ body.interactive-map-open{overflow:hidden}
 <div class="kicker">NAGOYA · KYOTO · KOBE</div>
 <h1><button aria-label="回到行程頁面" class="hero-title-button" id="back-to-schedule" type="button">2026 關西之旅</button></h1>
 </div>
+<div class="site-version" id="site-version" aria-label="網站版本"></div>
 </header>
 <main>
 <div class="page-view active" id="page-schedule"><section class="section">
@@ -1123,7 +1184,6 @@ else initDateAccordions();
   const setActual=()=>{box.classList.add('actual-size'); if(wrap){wrap.scrollTop=0;wrap.scrollLeft=0;}};
   fit?.addEventListener('click',setFit);
   actual?.addEventListener('click',setActual);
-  img?.addEventListener('click',()=>box.classList.contains('actual-size')?setFit():setActual());
   document.querySelectorAll('[data-lightbox-src]').forEach(btn=>btn.addEventListener('click',setFit));
   document.addEventListener('keydown',e=>{
     if(e.key==='Escape'&&box.classList.contains('open')) box.querySelector('.lightbox-close')?.click();
@@ -1182,16 +1242,24 @@ else initDateAccordions();
     box.addEventListener('click',event=>{
       if(event.target===box) closeBox();
     });
+    img?.addEventListener('dblclick',event=>{
+      event.preventDefault();
+      closeBox();
+    });
     fit?.addEventListener('click',setFit);
     actual?.addEventListener('click',setActual);
-    img?.addEventListener('click',()=>box.classList.contains('actual-size')?setFit():setActual());
-    document.addEventListener('keydown',event=>{
+      document.addEventListener('keydown',event=>{
       if(event.key==='Escape' && box.classList.contains('open')) closeBox();
     });
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initLightbox);
   else initLightbox();
 })();
+</script>
+<script id="site-version-script">
+const SITE_VERSION = "v16.01";
+const siteVersionElement = document.getElementById("site-version");
+if (siteVersionElement) siteVersionElement.textContent = SITE_VERSION;
 </script>
 </body>
 </html>
