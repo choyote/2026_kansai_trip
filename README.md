@@ -1,6 +1,6 @@
 # 2026 關西之旅網站
 
-目前網站版本：`v16.02`
+目前網站版本：`v16.04`
 
 圖片統一存放於 `images/`，避免把圖片資料直接寫進 `index.html`。餐廳菜單與地圖圖片可使用共用相簿檢視器放大查看。
 
@@ -18,7 +18,18 @@ images/
 │   ├── M005.png
 │   ├── M006.png
 │   ├── M007.png
-│   └── M008.png
+│   ├── M008.png
+│   ├── M009.png
+│   ├── M007.png
+│   ├── M008.png
+│   ├── M009.png
+│   ├── M010.png
+│   ├── M011.png
+│   ├── M012.png
+│   ├── M013.png
+│   ├── M014.png
+│   ├── M015.png
+│   └── M016.png
 ├── map/
 │   ├── MAP001.png
 │   └── MAP002.png
@@ -39,6 +50,14 @@ images/
 | `M006.png` | `images/menu/M006.png` | 徳川町ぶた福－固定菜單翻譯 |
 | `M007.png` | `images/menu/M007.png` | 徳川町ぶた福－今日限定菜單指南 |
 | `M008.png` | `images/menu/M008.png` | 徳川町ぶた福－飲料菜單翻譯 |
+| `M009.png` | `images/menu/M009.png` | BUCYO COFFEE 早餐套餐 |
+| `M010.png` | `images/menu/M010.png` | BUCYO COFFEE 飲品 |
+| `M011.png` | `images/menu/M011.png` | BUCYO COFFEE 簡餐 |
+| `M012.png` | `images/menu/M012.png` | BUCYO COFFEE 甜點 |
+| `M013.png` | `images/menu/M013.png` | BUCYO COFFEE 三明治＆沙拉 |
+| `M014.png` | `images/menu/M014.png` | BUCYO COFFEE 三明治 |
+| `M015.png` | `images/menu/M015.png` | BUCYO COFFEE 下午義大利麵 |
+| `M016.png` | `images/menu/M016.png` | BUCYO COFFEE 霜淇淋 |
 | `MAP001.png` | `images/map/MAP001.png` | 中部國際機場 第二航廈 → 第一航廈路線 |
 | `MAP002.png` | `images/map/MAP002.png` | 中部國際機場官方互動地圖縮圖 |
 
