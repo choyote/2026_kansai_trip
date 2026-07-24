@@ -755,7 +755,85 @@ body.interactive-map-open{overflow:hidden}
 #page-places .spot-badge{display:inline-flex;align-items:center;padding:3px 8px;border-radius:999px;background:#efe7d5;color:#765522;font-size:.68rem;font-weight:800}
 #page-places .spot-note{margin-top:12px;padding:10px 12px;border-radius:10px;background:#f0eadf;color:#625a50;font-size:.84rem}
 @media(max-width:760px){#page-places .spot-card{padding:18px}}
-</style></head>
+</style>
+<style id="v17-01-todo-packing">
+.packing-details{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:18px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+.packing-details>summary{
+  list-style:none;
+  cursor:pointer;
+  padding:17px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  font-weight:800;
+  color:var(--ink);
+}
+.packing-details>summary::-webkit-details-marker{display:none}
+.packing-details>summary::after{
+  content:"＋";
+  flex:0 0 28px;
+  width:28px;
+  height:28px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid var(--accent);
+  border-radius:50%;
+  color:var(--accent);
+}
+.packing-details[open]>summary::after{content:"−"}
+.packing-body{
+  padding:0 18px 18px;
+  border-top:1px solid var(--line);
+}
+.packing-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+  padding-top:16px;
+}
+.packing-category{
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:14px;
+  background:#fff;
+}
+.packing-category h4{
+  margin:0 0 9px;
+  font-size:.91rem;
+  color:var(--accent2);
+}
+.packing-items{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:7px 12px;
+}
+.packing-item{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-width:0;
+  font-size:.86rem;
+  cursor:pointer;
+}
+.packing-item input{flex:0 0 auto}
+.packing-item span{overflow-wrap:anywhere}
+@media(max-width:760px){
+  .packing-grid{grid-template-columns:1fr}
+  .packing-items{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:420px){
+  .packing-items{grid-template-columns:1fr}
+}
+</style>
+</head>
 <body>
 <header class="hero">
 <nav>
@@ -923,27 +1001,94 @@ body.interactive-map-open{overflow:hidden}
 </table></div>
 </section></div>
 <div class="page-view" id="page-todo"><section class="section">
-<div class="section-title"><div><h2>代辦事項</h2></div></div>
+<div class="section-title"><div><h2>待辦事項</h2></div></div>
+
 <div class="todo-group"><h3>訂房與交通</h3><div class="check-grid">
 <label class="check-card"><input class="save-check" data-key="todo-hotel-adjacent" type="checkbox"/><span><strong>聯絡名古屋飯店安排相鄰房</strong><p>兩間雙人房分別由一休與 Agoda 訂房，提供兩筆訂單編號請飯店協助安排。</p></span></label>
 <label class="check-card"><input class="save-check" data-key="todo-luggage" type="checkbox"/><span><strong>確認回程行李重量分配</strong><p>整理虎航加購公斤數與同行者可分攤額度。</p></span></label>
 <label class="check-card"><input class="save-check" data-key="todo-train" type="checkbox"/><span><strong>確認新幹線與大型行李座位</strong><p>名古屋至京都，確認 29 吋行李的座位安排。</p></span></label>
 <label class="check-card"><input class="save-check" data-key="todo-airport-transfer" type="checkbox"/><span><strong>確認回程包車</strong><p>京都飯店至臨空城及關西機場的時間、車型與行李容量。</p></span></label>
+<label class="check-card"><input class="save-check" data-key="todo-taoyuan-transfer" type="checkbox"/><span><strong>預訂桃園機場接送</strong><p>確認去回程接送時間、上車地點、車型與行李容量。</p></span></label>
 </div></div>
-<div class="todo-group"><h3>餐廳與預約</h3><div class="check-grid">
-<label class="check-card"><input class="save-check" data-key="todo-restaurant-spending" type="checkbox"/><span><strong>補齊餐廳消費方式</strong><p>確認套餐或單點、低消、服務費、付款方式及是否只能使用現金。</p></span></label>
-<label class="check-card"><input class="save-check" data-key="todo-reservations" type="checkbox"/><span><strong>依預約開放日完成訂位</strong><p>逐項對照「預約」分頁並確認人數、時間與取消規則。</p></span></label>
-<label class="check-card"><input class="save-check" data-key="todo-bento" type="checkbox"/><span><strong>預訂淡路屋章魚便當</strong><p>12/04 於三宮取貨，確認取貨店、時間與數量。</p></span></label>
-<label class="check-card"><input class="save-check" data-key="todo-menu" type="checkbox"/><span><strong>整理需要翻譯的菜單</strong><p>將菜單照片、中文翻譯與生食／熟食標記補進餐廳卡片。</p></span></label>
+
+<div class="todo-group"><h3>預約</h3><div class="check-grid">
+<label class="check-card"><input class="save-check" data-key="todo-restaurant-reservations" type="checkbox"/><span><strong>完成所有餐廳預約</strong><p>逐項對照「預約」分頁，完成餐廳與便當預約。</p></span></label>
+<label class="check-card"><input class="save-check" data-key="todo-transport-reservations" type="checkbox"/><span><strong>完成所有交通預約</strong><p>完成嵯峨野小火車、保津川遊船、機場接送及其他需事先預約的交通。</p></span></label>
 </div></div>
+
 <div class="todo-group"><h3>出發前</h3><div class="check-grid">
+<label class="check-card"><input class="save-check" data-key="todo-travel-insurance" type="checkbox"/><span><strong>購買旅遊不便險</strong></span></label>
+<label class="check-card"><input class="save-check" data-key="todo-visit-japan" type="checkbox"/><span><strong>完成 Visit Japan Web 入境資料填寫</strong></span></label>
+<label class="check-card"><input class="save-check" data-key="todo-paypay" type="checkbox"/><span><strong>設定／確認 PayPay 可正常使用</strong></span></label>
+<label class="check-card"><input class="save-check" data-key="todo-mobile-card" type="checkbox"/><span><strong>手機綁定信用卡</strong></span></label>
 <label class="check-card"><input class="save-check" data-key="todo-passport" type="checkbox"/><span><strong>檢查護照與航班資料</strong><p>確認護照效期、姓名拼音、航班時間及報到規定。</p></span></label>
 <label class="check-card"><input class="save-check" data-key="todo-network" type="checkbox"/><span><strong>準備網路與付款工具</strong><p>確認 eSIM／Wi-Fi、信用卡海外交易及少量日圓現金。</p></span></label>
 <label class="check-card"><input class="save-check" data-key="todo-weather" type="checkbox"/><span><strong>出發前確認天氣與衣物</strong><p>依名古屋、京都、神戶的預報調整保暖與雨具。</p></span></label>
 <label class="check-card"><input class="save-check" data-key="todo-documents" type="checkbox"/><span><strong>備份訂單與票券</strong><p>將飯店、餐廳、交通與景點預約截圖存入手機離線資料夾。</p></span></label>
 </div></div>
-</section></div>
-<div class="page-view" id="page-coupon"><section class="section"><div class="placeholder-page">
+
+<div class="todo-group"><h3>行李 Checklist</h3>
+<details class="packing-details">
+<summary>展開行李清單</summary>
+<div class="packing-body"><div class="packing-grid">
+
+<section class="packing-category"><h4>證件與金錢</h4><div class="packing-items">
+<label class="packing-item"><input class="save-check" data-key="pack-passport" type="checkbox"/><span>護照</span></label>
+<label class="packing-item"><input class="save-check" data-key="pack-yen" type="checkbox"/><span>日幣</span></label>
+<label class="packing-item"><input class="save-check" data-key="pack-credit-card" type="checkbox"/><span>信用卡（JCB／Master／VISA）</span></label>
+</div></section>
+
+<section class="packing-category"><h4>衣物</h4><div class="packing-items">
+<label class="packing-item"><input class="save-check" data-key="pack-clothes" type="checkbox"/><span>衣服</span></label>
+<label class="packing-item"><input class="save-check" data-key="pack-underwear" type="checkbox"/><span>內衣褲</span></label>
+<label class="packing-item"><input class="save-check" data-key="pack-socks" type="checkbox"/><span>襪子</span></label>
+<label class="packing-item"><input class="save-check" data-key="pack-coat" type="checkbox"/><span>外套</span></label>
+<label class="packing-item"><input class="save-check" data-key="pack-pajamas" type="checkbox"/><span>睡衣</span></label>
+</div></section>
+
+<section class="packing-category"><h4>盥洗與保養</h4><div class="packing-items">
+<label class="packing-item"><input class="save-check" data-key="pack-face-wash" type="checkbox"/><span>洗面乳</span></label>
+<label class="packing-item"><input class="save-check" data-key="pack-electric-toothbrush" type="checkbox"/><span>電動牙刷</span></label>
+<label class="packing-item"><input class="save-check" data-key="pack-toothpaste" type="checkbox"/><span>牙膏</span></label>
+<label class="packing-item"><input class="save-check" data-key="pack-lotion" type="checkbox"/><span>乳液</span></label>
+<label class="packing-item"><input class="save-check" data-key="pack-disposable-towels" type="checkbox"/><span>拋棄式浴巾／毛巾</span></label>
+</div></section>
+
+<section class="packing-category"><h4>藥品與舒緩</h4><div class="packing-items">
+<label class="packing-item"><input class="save-check" data-key="pack-glucose-medicine" type="checkbox"/><span>血糖藥</span></label>
+<label class="packing-item"><input class="save-check" data-key="pack-motion-sickness" type="checkbox"/><span>暈船藥</span></label>
+<label class="packing-item"><input class="save-check" data-key="pack-foot-patch" type="checkbox"/><span>足貼</span></label>
+</div></section>
+
+<section class="packing-category"><h4>3C</h4><div class="packing-items">
+<label class="packing-item"><input class="save-check" data-key="pack-cable" type="checkbox"/><span>充電線</span></label>
+<label class="packing-item"><input class="save-check" data-key="pack-adapter" type="checkbox"/><span>豆腐頭</span></label>
+<label class="packing-item"><input class="save-check" data-key="pack-extension" type="checkbox"/><span>延長線</span></label>
+<label class="packing-item"><input class="save-check" data-key="pack-power-bank" type="checkbox"/><span>行動電源</span></label>
+</div></section>
+
+<section class="packing-category"><h4>相機</h4><div class="packing-items">
+<label class="packing-item"><input class="save-check" data-key="pack-camera" type="checkbox"/><span>相機</span></label>
+<label class="packing-item"><input class="save-check" data-key="pack-travel-lens" type="checkbox"/><span>旅遊鏡</span></label>
+<label class="packing-item"><input class="save-check" data-key="pack-wide-lens" type="checkbox"/><span>廣角鏡</span></label>
+<label class="packing-item"><input class="save-check" data-key="pack-camera-battery" type="checkbox"/><span>相機電池</span></label>
+<label class="packing-item"><input class="save-check" data-key="pack-camera-charger" type="checkbox"/><span>相機充電器</span></label>
+<label class="packing-item"><input class="save-check" data-key="pack-sd-card" type="checkbox"/><span>SD 記憶卡</span></label>
+</div></section>
+
+<section class="packing-category"><h4>其他</h4><div class="packing-items">
+<label class="packing-item"><input class="save-check" data-key="pack-goshuin" type="checkbox"/><span>御朱印帳</span></label>
+<label class="packing-item"><input class="save-check" data-key="pack-umbrella" type="checkbox"/><span>折疊傘</span></label>
+<label class="packing-item"><input class="save-check" data-key="pack-tissues" type="checkbox"/><span>抽取式衛生紙</span></label>
+<label class="packing-item"><input class="save-check" data-key="pack-pepper-salt" type="checkbox"/><span>白胡椒鹽</span></label>
+<label class="packing-item"><input class="save-check" data-key="pack-luggage-scale" type="checkbox"/><span>行李秤</span></label>
+</div></section>
+
+</div></div>
+</details>
+</div>
+
+</section></div><div class="page-view" id="page-coupon"><section class="section"><div class="placeholder-page">
 <h2>折價券</h2><p>集中放置百貨、Outlet、購物與交通可用的優惠券及使用條件。</p>
 </div></section></div>
 </main>
@@ -1259,7 +1404,7 @@ else initDateAccordions();
 })();
 </script>
 <script id="site-version-script">
-const SITE_VERSION = "v17.00";
+const SITE_VERSION = "v17.02";
 const siteVersionElement = document.getElementById("site-version");
 if (siteVersionElement) siteVersionElement.textContent = SITE_VERSION;
 </script>
