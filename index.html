@@ -1011,7 +1011,7 @@ body.interactive-map-open{overflow:hidden}
 <button class="top-tab" data-page="hotels">飯店</button>
 <button class="top-tab" data-page="transport">交通</button>
 <button class="top-tab" data-page="booking">預約</button>
-<button class="top-tab" data-page="todo">代辦事項</button>
+<button class="top-tab" data-page="todo">待辦事項</button>
 <button class="top-tab" data-page="coupon">折價券</button>
 </div>
 </nav>
@@ -1114,6 +1114,26 @@ body.interactive-map-open{overflow:hidden}
 </div>
 </div>
 
+</details>
+
+<details class="shopping-district">
+<summary>鳥岩樓到晴明神社散策</summary>
+<div class="shopping-district-body"><p class="coming-district">散策地圖待補。</p></div>
+</details>
+
+<details class="shopping-district">
+<summary>清水寺到高台寺散策</summary>
+<div class="shopping-district-body"><p class="coming-district">散策地圖待補。</p></div>
+</details>
+
+<details class="shopping-district">
+<summary>大原地區散策</summary>
+<div class="shopping-district-body"><p class="coming-district">散策地圖待補。</p></div>
+</details>
+
+<details class="shopping-district">
+<summary>舊留居地散策</summary>
+<div class="shopping-district-body"><p class="coming-district">散策地圖待補。</p></div>
 </details>
 
 </section>
@@ -1497,10 +1517,7 @@ body.interactive-map-open{overflow:hidden}
 <summary>京都車站攻略</summary>
 <div class="shopping-district-body"><p class="coming-district">地圖與攻略卡待加入。</p></div>
 </details>
-<details class="shopping-district" id="district-kobe-sannomiya">
-<summary>神戶三宮攻略</summary>
-<div class="shopping-district-body"><p class="coming-district">地圖與攻略卡待加入。</p></div>
-</details>
+
 </section>
 </div>
 <div class="page-view" id="page-shopping"><section class="section">
@@ -1565,7 +1582,7 @@ body.interactive-map-open{overflow:hidden}
 <td><span class="tag small">餐廳</span><strong>馬喰一代 EAST</strong></td>
 <td>2026/11/28</td>
 <td>2026/9/1</td>
-<td>Tabelog</td>
+<td>Tabelog（日文版）</td>
 <td><a href="https://tabelog.com/aichi/A2301/A230101/23063590/" rel="noopener" target="_blank">前往預約 ↗</a></td>
 <td>每月1日開放3個月後整月（已驗證）</td>
 </tr>
@@ -1619,9 +1636,9 @@ body.interactive-map-open{overflow:hidden}
 <td><span class="tag small">餐廳</span><strong>うらやま京色</strong></td>
 <td>2026/12/2 19:00</td>
 <td>已開放</td>
-<td>官網／網路</td>
-<td><a href="https://urayamakyosyoku.owst.jp/" rel="noopener" target="_blank">前往預約 ↗</a></td>
-<td>晚餐；店家可網路預約</td>
+<td>Tabelog（中文版）</td>
+<td><a href="https://tabelog.com/tw/kyoto/A2601/A260201/26035003/" rel="noopener" target="_blank">前往預約 ↗</a></td>
+<td>晚餐；Tabelog 中文版預約</td>
 </tr>
 <tr>
 <td><input class="save-check" data-key="reservation-azabu" type="checkbox"/></td>
@@ -2109,7 +2126,7 @@ else initDateAccordions();
 })();
 </script>
 <script id="site-version-script">
-const SITE_VERSION = "v17.7.4";
+const SITE_VERSION = "v17.7.5";
 const siteVersionElement = document.getElementById("site-version");
 if (siteVersionElement) siteVersionElement.textContent = SITE_VERSION;
 </script>
